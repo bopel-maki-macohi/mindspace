@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+
+<app_title />
+<app_file />
+<app_main />
+<app_version />
+<app_company />
+
+<app preloader="flixel.system.FlxPreloader" />
+<set name="SWF_VERSION" value="11.8" />
+
+<window hardware="true" vsync="false" />
+<window_background />
+<window_dimensions />
+<window_framerate />
+<window_resizable />
+<window_orientation />
+<window_fullscreen />
+
+<build_directory />
+
+<source path="source" />
+<path_assets />
+
+<haxelibs />
+
+<defines />
+
+<haxedef name="message.reporting" value="pretty" />
+
+</project>
