@@ -1,1 +1,0 @@
-haxe -m ProjectCreator.hx --interp %*
