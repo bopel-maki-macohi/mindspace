@@ -8,7 +8,7 @@ class ProjectCreator
 
 	final mobile = #if (air && ios || air && android || android || blackberry || ios || tizen || webos || tvos) true #else false #end;
 	final html5 = #if (flash || html5 || firefox || webassembly) true #else false #end;
-	final desktop = #if (windows || mac || linux || air && !android && !ios) true #else false #end;
+	final desktop = #if (hashlink || windows || mac || linux || air && !android && !ios) true #else false #end;
 
 	static function main()
 	{
@@ -74,6 +74,7 @@ class ProjectCreator
 		usingHaxelib('flixel');
 		replaceTag('haxelibs', haxelibs);
 
+        addDefine('--dce', 'full');
 		addDefine('FLX_NO_HEALTH');
 
 		if (mobile)
@@ -145,8 +146,11 @@ class ProjectCreator
 		haxelibs.push('<haxelib name="${haxelib}"/>');
 	}
 
-	public function addDefine(define:String)
+	public function addDefine(define:String, ?value:String)
 	{
-		defines.push('<haxedef name="${define}"/>');
+        if (value != null)
+		defines.push('<haxedef name="${define}" value="$value" />');
+        else
+		defines.push('<haxedef name="${define}" />');
 	}
 }

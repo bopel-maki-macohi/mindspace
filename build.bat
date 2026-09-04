@@ -1,2 +1,8 @@
+
 haxe -m ProjectCreator.hx --interp -D %*
-lime test %*
+
+IF %1 == "hashlink" (
+    lime test hl
+) ELSE (
+    lime test %*
+)
