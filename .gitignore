@@ -1,0 +1,7 @@
+export/
+.haxelib/
+dump/
+bin/
+
+project.xml
+.DS_Store
