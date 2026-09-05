@@ -33,13 +33,17 @@ class PackState extends FlxState
 				noPacks.screenCenter();
 				add(noPacks);
 
+				log(PACKSTATE_CASE_NO_PACKS);
 				return;
 			}
 
-			select();
+			log(PACKSTATE_CASE_ONE_PACK);
 
+			select();
 			return;
 		}
+
+		log(PACKSTATE_CASE_MULTIPLE_PACKS);
 
 		uiCam = new FlxCamera();
 		FlxG.cameras.reset(uiCam);
@@ -120,7 +124,5 @@ class PackState extends FlxState
 
 		for (packDir in packDirs)
 			packs.push(packDir.split('/')[1]);
-
-		trace('packs', packs);
 	}
 }
