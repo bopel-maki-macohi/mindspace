@@ -16,6 +16,8 @@ class PackState extends FlxState
 	var uiCam:FlxCamera;
 	var uiCamTarget:FlxObject;
 
+	var uiSelection:Int = 0;
+
 	override function create()
 	{
 		super.create();
@@ -29,12 +31,12 @@ class PackState extends FlxState
 		add(uiCamTarget);
 
 		uiCam.focusOn(uiCamTarget.getPosition());
-        uiCam.follow(uiCamTarget, LOCKON, 0.04);
+		uiCam.follow(uiCamTarget, LOCKON, 0.04);
 
 		packIcons = new FlxSpriteContainer();
 		add(packIcons);
 
-		for (pack in packs)
+		for (i => pack in packs)
 		{
 			var packIconPath:String = 'packs/$pack/icon.png';
 
@@ -44,19 +46,44 @@ class PackState extends FlxState
 			var packIcon = new FlxSprite().loadGraphic(packIconPath);
 
 			packIcon.setGraphicSize(160);
-            packIcon.updateHitbox();
+			packIcon.updateHitbox();
 
-			packIcon.x = packIcon.width * 1.25;
+			packIcon.x = i * (packIcon.width * 1.5);
+
+			packIcon.ID = i;
 
 			packIcons.add(packIcon);
 		}
+
+		select(0);
 	}
 
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
-        uiCamTarget.x = packIcons.members[0].getGraphicMidpoint().x;
+		if (FlxG.keys.anyJustPressed([A, LEFT]))
+			select(-1);
+		if (FlxG.keys.anyJustPressed([D, RIGHT]))
+			select(1);
+	}
+
+	function select(amount:Int)
+	{
+		uiSelection += amount;
+
+		if (uiSelection < 0)
+			uiSelection = packIcons.length - 1;
+
+		if (uiSelection > packIcons.length - 1)
+			uiSelection = 0;
+
+		for (packIcon in packIcons)
+			packIcon.alpha = 0.5;
+
+		uiCamTarget.x = packIcons.members[uiSelection].getGraphicMidpoint().x;
+		uiCamTarget.y = packIcons.members[uiSelection].getGraphicMidpoint().y;
+		packIcons.members[uiSelection].alpha = 1;
 	}
 
 	function getPacks()

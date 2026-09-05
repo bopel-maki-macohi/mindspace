@@ -106,7 +106,7 @@ class ProjectCreator
 
 	function downloadBaseProject()
 	{
-		project = File.getContent('dev/project-template.xml');
+		project = File.getContent('assets/project-template.xml');
 	}
 
 	function saveProject()
