@@ -124,5 +124,7 @@ class PackState extends FlxState
 
 		for (packDir in packDirs)
 			packs.push(packDir.split('/')[1]);
+
+        log('[PACKSTATE] Packs: $packs');
 	}
 }
