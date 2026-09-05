@@ -11,5 +11,7 @@ class PlayState extends FlxState
 		super();
 
 		this.pack = pack;
+
+        log('[PLAYSTATE] Opening Pack : $pack');
 	}
 }
