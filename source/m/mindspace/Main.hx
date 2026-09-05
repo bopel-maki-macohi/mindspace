@@ -6,6 +6,6 @@ class Main extends FlxGame
 {
 	public function new()
 	{
-		super(0, 0, PlayState);
+		super(0, 0, PackState, 60, 60, true, false);
 	}
 }
