@@ -69,12 +69,15 @@ class ProjectCreator
 			createTag('set name="BUILD_DIR"', 'value', (debug) ? 'export/debug' : 'export/release'),
 		]);
 
-		replaceTag('path_assets', [createTag('assets', 'path', 'packs')]);
+		replaceTag('path_assets', [
+			createTag('assets rename="packs"', 'path', 'assets/packs'),
+			createTag('assets rename="" embed="true"', 'path', 'assets/embed')
+		]);
 
 		usingHaxelib('flixel');
 		replaceTag('haxelibs', haxelibs);
 
-        addDefine('--dce', 'full');
+		addDefine('--dce', 'full');
 		addDefine('FLX_NO_HEALTH');
 
 		if (mobile)
@@ -148,9 +151,9 @@ class ProjectCreator
 
 	public function addDefine(define:String, ?value:String)
 	{
-        if (value != null)
-		defines.push('<haxedef name="${define}" value="$value" />');
-        else
-		defines.push('<haxedef name="${define}" />');
+		if (value != null)
+			defines.push('<haxedef name="${define}" value="$value" />');
+		else
+			defines.push('<haxedef name="${define}" />');
 	}
 }
