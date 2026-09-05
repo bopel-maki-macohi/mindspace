@@ -1,5 +1,6 @@
 package m.mindspace;
 
+import flixel.text.FlxText;
 import flixel.FlxObject;
 import flixel.FlxG;
 import flixel.FlxCamera;
@@ -23,6 +24,22 @@ class PackState extends FlxState
 		super.create();
 
 		getPacks();
+
+		if (packs.length < 2)
+		{
+			if (packs.length < 1)
+			{
+				var noPacks = new FlxText(0, 0, 0, 'NO PACKS ARE INSTALLED!\n\nPUT SOME PACKS INSIDE OF THE PACKS FOLDER', 16);
+				noPacks.screenCenter();
+				add(noPacks);
+
+				return;
+			}
+
+			select();
+
+			return;
+		}
 
 		uiCam = new FlxCamera();
 		FlxG.cameras.reset(uiCam);
@@ -55,7 +72,7 @@ class PackState extends FlxState
 			packIcons.add(packIcon);
 		}
 
-		select(0);
+		changeSelection(0);
 	}
 
 	override function update(elapsed:Float)
@@ -63,12 +80,19 @@ class PackState extends FlxState
 		super.update(elapsed);
 
 		if (FlxG.keys.anyJustPressed([A, LEFT]))
-			select(-1);
+			changeSelection(-1);
 		if (FlxG.keys.anyJustPressed([D, RIGHT]))
-			select(1);
+			changeSelection(1);
+		if (FlxG.keys.anyJustPressed([ENTER]))
+			select();
 	}
 
-	function select(amount:Int)
+	function select()
+	{
+		FlxG.switchState(() -> new PlayState(packs[uiSelection]));
+	}
+
+	function changeSelection(amount:Int)
 	{
 		uiSelection += amount;
 
